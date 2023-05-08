@@ -1,9 +1,6 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import { Ressource } from 'src/ressource/schemas/ressource.schema';
 
-export type equipementDocument = HydratedDocument<equipement>;
-
-interface CaracteristiquesPrimaires {
+export interface CaracteristiquesPrimaires {
   ga_pa?: number;
   ga_pme?: number;
   po?: number;
@@ -17,7 +14,7 @@ interface CaracteristiquesPrimaires {
   sa?: number;
 }
 
-interface CaracteristiquesSecondaires {
+export interface CaracteristiquesSecondaires {
   ret_pa?: number;
   re_pa?: number;
   ret_pme?: number;
@@ -31,7 +28,7 @@ interface CaracteristiquesSecondaires {
   pod?: number;
 }
 
-interface Dommages {
+export interface Dommages {
   do?: number;
   do_cri?: number;
   do_neutre?: number;
@@ -49,7 +46,7 @@ interface Dommages {
   do_per_me?: number;
 }
 
-interface Resistances {
+export interface Resistances {
   re_neutre?: number;
   re_per_neutre?: number;
   re_terre?: number;
@@ -66,25 +63,17 @@ interface Resistances {
   re_per_me?: number;
 }
 
-@Schema()
-export class equipement {
-  @Prop({ required: true })
-  name: string;
-
-  @Prop()
-  pourcentage_brisage?: number;
-
-  @Prop()
-  caracteristiques_primaires?: CaracteristiquesPrimaires;
-
-  @Prop()
-  caracteristiques_secondaires?: CaracteristiquesSecondaires;
-
-  @Prop()
-  dommages?: Dommages;
-
-  @Prop()
-  resistances?: Resistances;
+export interface RessourceNumber {
+  ressource: Ressource;
+  nombre: number;
 }
 
-export const equipementSchema = SchemaFactory.createForClass(equipement);
+export interface Equipement {
+  name: string;
+  pourcentage_brisage?: number;
+  caracteristiques_primaires?: CaracteristiquesPrimaires;
+  caracteristiques_secondaires?: CaracteristiquesSecondaires;
+  dommages?: Dommages;
+  resistances?: Resistances;
+  craft: RessourceNumber[];
+}
