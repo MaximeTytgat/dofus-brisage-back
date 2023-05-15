@@ -1,4 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Ressource } from 'src/ressource/ressource.interface';
 import { HydratedDocument } from 'mongoose';
 import * as mongoose from 'mongoose';
 
@@ -7,33 +8,42 @@ import type {
   CaracteristiquesSecondaires,
   Dommages,
   Resistances,
-  RessourceNumber,
 } from '../equipement.interface';
 
-export type equipementDocument = HydratedDocument<Equipement>;
+export type EquipementDocument = HydratedDocument<Equipement>;
 
 @Schema()
 export class Equipement {
-  @Prop({ required: true })
+  @Prop({ required: true, unique: true })
   name: string;
 
   @Prop()
   pourcentage_brisage?: number;
 
-  @Prop()
+  @Prop({ type: Object })
   caracteristiques_primaires?: CaracteristiquesPrimaires;
 
-  @Prop()
+  @Prop({ type: Object })
   caracteristiques_secondaires?: CaracteristiquesSecondaires;
 
-  @Prop()
+  @Prop({ type: Object })
   dommages?: Dommages;
 
-  @Prop()
+  @Prop({ type: Object })
   resistances?: Resistances;
 
-  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Ressource' }] })
-  craft?: RessourceNumber[];
+  @Prop({
+    type: [
+      {
+        ressource: { type: mongoose.Schema.Types.ObjectId, ref: 'Ressource' },
+        nombre: Number,
+      },
+    ],
+  })
+  craft?: {
+    ressource: Ressource;
+    nombre: number;
+  }[];
 }
 
-export const equipementSchema = SchemaFactory.createForClass(Equipement);
+export const EquipementSchema = SchemaFactory.createForClass(Equipement);

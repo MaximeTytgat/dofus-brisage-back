@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { RessourceController } from './ressource.controller';
+import { RessourceController } from '../ressource.controller';
 
 describe('RessourceController', () => {
   let controller: RessourceController;

@@ -18,4 +18,4 @@ export class Ressource {
   prix_moyen?: number;
 }
 
-export const ressourceSchema = SchemaFactory.createForClass(Ressource);
+export const RessourceSchema = SchemaFactory.createForClass(Ressource);
