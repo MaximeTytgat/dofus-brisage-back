@@ -7,7 +7,7 @@ import { CreateBrisageDto } from './dto/create-brisage.dto';
 @Injectable()
 export class BrisageService {
   constructor(
-    @InjectModel(Brisage.name) private readonly brisageModel: Model<Brisage>,
+    @InjectModel(Brisage.name, 'nest') private readonly brisageModel: Model<Brisage>,
   ) {}
 
   async create(createBrisageDto: CreateBrisageDto): Promise<Brisage> {
@@ -20,7 +20,20 @@ export class BrisageService {
 
     return this.brisageModel
       .find()
-      .populate('equipement craft.ressource')
+      .populate({
+        path: 'equipement',
+        populate: [{
+          path: 'craft',
+          populate: {
+            path: 'ressource'
+          }
+        }, {
+          path: 'effects',
+          populate: {
+            path: 'effect'
+          }
+        }],
+      })
       .exec();
   }
 }

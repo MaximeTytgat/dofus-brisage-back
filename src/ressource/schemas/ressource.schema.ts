@@ -12,6 +12,9 @@ export class Ressource {
   categorie?: string;
 
   @Prop()
+  img?: string;
+
+  @Prop()
   poids?: number;
 
   @Prop()

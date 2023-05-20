@@ -6,7 +6,6 @@ import { arrayBrisage, newBrisage, newEquipement } from './mocks/BrisageMock';
 
 describe('Brisage Controller', () => {
   let controller: BrisageController;
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   let service: BrisageService;
 
   beforeEach(async () => {

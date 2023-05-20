@@ -14,7 +14,6 @@ export class EquipementController {
   async create(
     @Body() createEquipementDto: CreateEquipementDto,
   ): Promise<void> {
-    console.log(createEquipementDto);
     await this.equipementService.create(createEquipementDto);
   }
 

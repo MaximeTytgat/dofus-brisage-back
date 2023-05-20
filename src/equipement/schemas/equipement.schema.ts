@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Ressource } from 'src/ressource/ressource.interface';
+import { Effects } from 'src/effects/schemas/effects.schema';
 import { HydratedDocument } from 'mongoose';
 import * as mongoose from 'mongoose';
 
@@ -20,18 +21,27 @@ export class Equipement {
   @Prop()
   pourcentage_brisage?: number;
 
-  @Prop({ type: Object })
-  caracteristiques_primaires?: CaracteristiquesPrimaires;
+  @Prop()
+  categorie?: string;
 
-  @Prop({ type: Object })
-  caracteristiques_secondaires?: CaracteristiquesSecondaires;
+  @Prop()
+  img?: string;
 
-  @Prop({ type: Object })
-  dommages?: Dommages;
-
-  @Prop({ type: Object })
-  resistances?: Resistances;
-
+  @Prop({
+    type: [
+      {
+        effect: { type: mongoose.Schema.Types.ObjectId, ref: 'Effects' },
+        from: Number,
+        to: Number,
+      },
+    ],
+  })
+  effects?: {
+    effect: mongoose.Schema.Types.ObjectId;
+    from: number;
+    to: number;
+  }[];
+  
   @Prop({
     type: [
       {
